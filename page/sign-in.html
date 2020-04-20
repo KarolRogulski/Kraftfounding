@@ -30,18 +30,18 @@
     <div class="bg"></div>
     <div class="container">
         <div class="content">
-            <div class="text">Zainwestuj swój czas, </br>
+            <div class="text">Zainwestuj swój czas, <br>
                 <span style="margin-left: 80px"><b>by zyskać coś więcej!</b></span></div>
             <div style="clear: both"></div>
             <div class="form-sign-in">
                 <div class="logo">logo</div>
                 <div class="text-sign-in">Zaloguj się</div>
-                <form method="post">
-                    <input type="text" placeholder="login" onfocus="this.placeholder=''" onblur="this.placeholder='login'">
-                    </br></br>
-                    <input type="password" placeholder="hasło" onfocus="this.placeholder=''" onblur="this.placeholder='hasło'">
-                    </br></br>
-                    <input type="submit" value="Zaloguj się">
+                <form name="login" method="post">
+                    <input name="username" type="text" placeholder="login" onfocus="this.placeholder=''" onblur="this.placeholder='login'" >
+                    <br><br>
+                    <input name="password" type="password" placeholder="hasło" onfocus="this.placeholder=''" onblur="this.placeholder='hasło'" >
+                    <br><br>
+                    <input class="submit" type="" value="Zaloguj się" onclick="loginAndSend()" >
                 </form>
                 <div class="footer-sign-in">
                     Nie masz konta? <a href="#">Zarejestruj się!</a>
@@ -60,5 +60,6 @@
             </div>
         </div>
     </div>
+    <script src="../js/register.js"></script>
 </body>
 </html>

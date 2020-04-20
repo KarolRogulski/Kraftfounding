@@ -10,13 +10,18 @@ let userData = {
     "abilities":"",
     "description":""
 }
+
+let userDataLogin = {
+    "username":null,
+    "password":null
+}
 //stałe i zmienne
 
 let userDataString;
 let userDataStringLogin;
-const url = "https://localhost:8081";
+const url = "https://jsonplaceholder.typicode.com/posts";
 
-//przełączanie okienek w formularzu
+//przełączanie okienek w formularzu (rejestracja)
 function HideContent(d)
 {
     switch (d) {
@@ -45,6 +50,12 @@ function HideContent(d)
     }
 }
 
+//formular logowanie
+function loginAndSend() {
+    JSONFromFormLogin();
+    sendLogin();
+}
+
 //zamiana obiektu na JSON
 function JSONFromForm(){
     userData.login = document.forms['register'].login.value;
@@ -66,13 +77,17 @@ function JSONFromForm(){
     console.log(userDataString);
 }
 
-//wysyłąnei danych na serwer
+function JSONFromFormLogin(){
+    userDataLogin.username = document.forms['login'].username.value;
+    userDataLogin.password = document.forms['login'].password.value;
+    userDataStringLogin = JSON.stringify(userDataLogin);
+    console.log(userDataStringLogin);
+}
+
+//wysyłąnei danych na serwer (rejestracja)
 function send() {
     fetch(url, {
         method: "post",
-        headers: {
-            "Content-Type": "application/json"
-        },
         body: userDataString
     })
         .then(res => res.json())
@@ -81,13 +96,21 @@ function send() {
             console.log("Dodałem użytkownika:");
             console.log(res);
         })
-        .catch(error =>{
-            if (error.status === 404) {
-                console.log("Błąd: żądany adres nie istnieje");
-            }else{
-                console.log("Błąd: brak adresu");
-            }
+        .catch(error => console.log("Błąd: ", error));
+}
+
+//logowanie
+function sendLogin() {
+    fetch(url, {
+        method: "post",
+        body: userDataStringLogin
+    })
+        .then(res => res.json())
+        .then(res => {
+            alert("Zalogowano")
+            console.log(res);
         })
+        .catch(error => console.log("Błąd: ", error));
 }
 
 //walidacja formularza
