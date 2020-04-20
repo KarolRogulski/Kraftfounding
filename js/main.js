@@ -1,11 +1,10 @@
-// response = /localhost.json;
-// let userDataString = response.json();
-// let userData = JSON.parse(userDataString);
-const userDataString = '{"name":["Jan","Kowalski"],"topic":"moj przykładowy temat","bodyproject":"TU se mam opis projektu"}';
-const userData = JSON.parse(userDataString);
-let myHeading = document.querySelectorAll('.author-project');
-console.log(myHeading);
-console.log(userData);
-myHeading[0].textContent = userData.name[0] + " " + userData.name[1];
-document.querySelectorAll('.name-project')[1].textContent = userData.topic;
-document.querySelectorAll('.body-project')[1].textContent = userData.bodyproject;
+fetch("https://jsonplaceholder.typicode.com/users")
+    .then(response => response.json())
+    .then(response => {
+        userData = JSON.parse(JSON.stringify(response));
+        console.log(userData);
+        let myHeading = document.querySelectorAll('.author-project');
+        myHeading[0].textContent = userData[0].name;
+        document.querySelectorAll('.name-project')[1].textContent = userData[1].website;
+        document.querySelectorAll('.body-project')[1].textContent = userData[1].name;
+    })
