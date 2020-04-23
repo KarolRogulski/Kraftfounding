@@ -8,3 +8,17 @@ fetch("https://jsonplaceholder.typicode.com/users")
         document.querySelectorAll('.name-project')[1].textContent = userData[1].website;
         document.querySelectorAll('.body-project')[1].textContent = userData[1].name;
     })
+
+
+function usermenu() {
+        document.getElementById("userDropdown").classList.toggle("show");
+}
+
+window.onclick = function(e) {
+        if (!e.target.matches('.dropbtn')) {
+                let myDropdown = document.getElementById("userDropdown");
+                if (myDropdown.classList.contains('show')) {
+                        myDropdown.classList.remove('show');
+                }
+        }
+}

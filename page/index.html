@@ -17,7 +17,7 @@
 
         <nav class="navbar navbar-dark bg-jumpers navbar-expand-xl">
 
-            <a class="navbar-brand" href="#"><img src="img/logo.png" width="30" height="30" class="d-inline-block mr-1 align-bottom" alt="Logo"></a>
+            <a class="navbar-brand" href="#"><img src="/img/logo.png" width="30" height="30" class="d-inline-block mr-1 align-bottom" alt="Logo"></a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenu" aria-controls="mainmenu" aria-expanded="false" aria-label="Navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -45,12 +45,25 @@
 
                 </ul>
 
-                <div class="user-interface">
+                <div id="user-logout" class="user-interface">
                     <div class="d-inline-block mr-1 align-middle">
                         <a href="#" class="sign-up-link nav-color">Zarejestruj sie</a>
                     </div>
                     <div class="sign-in d-inline-block mr-1 align-middle">
                         <a href="#">Zaloguj sie</a>
+                    </div>
+                </div>
+
+                <div id="user-login" class="user-interface-login" style="display: none;">
+                    <div class="d-inline-block mr-1 align-middle">
+                        <a href="#" id="user-login-menu" class="dropbtn sign-up-link nav-color user-login" onclick="usermenu()">Adam Kowalski</a>
+                        <div class="dropdown-user-menu" id="userDropdown">
+                            <a href="#">Twój profil</a>
+                            <a href="#">Twoje projekty</a>
+                            <a href="#">Ulubione</a>
+                            <a href="#">XYZ</a>
+                            <a href="#">Wyloguj</a>
+                        </div>
                     </div>
                 </div>
 
