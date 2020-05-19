@@ -14,7 +14,7 @@ let projectData = {
 }
 
 let user = {
-        "name":""
+        "name":null
 }
 
 /*"https://jsonplaceholder.typicode.com/users"*/
@@ -37,11 +37,11 @@ function checkLogin(){
             .then(response => response.json())
             .then(response =>{
                     user = JSON.parse(JSON.stringify(response));
-                    if (user.name===""){
+                    if (user.name===null){
                             document.getElementById("user-logout").style.display = "block";
                             document.getElementById("user-login").style.display = "none";
                     }else{
-                            document.getElementById("user-login-menu").textContent = user.name;
+                            document.getElementById("user-login-menu").textContent = user[0].name;
                             document.getElementById("user-logout").style.display = "none";
                             document.getElementById("user-login").style.display = "block";
                     }

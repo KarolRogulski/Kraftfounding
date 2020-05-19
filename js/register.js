@@ -71,7 +71,7 @@ function JSONFromForm(){
     let poleSelect = document.forms['register'].abilities;
     for (let i=0; i<poleSelect.length; i++){
         if (poleSelect.options[i].selected){
-            userData.abilities.push({"ability":poleSelect.options[i].value}) //+= poleSelect.options[i].value;
+            userData.abilities.push({"ability":poleSelect.options[i].value})
         }
     }
     userData.interests = document.forms['register'].description.value;
@@ -118,7 +118,7 @@ function sendLogin() {
 
 //walidacja formularza
 function test1() {
-    /*if(document.forms['register'].login.value === "")
+    if(document.forms['register'].login.value === "")
         {alert("Nie podałeś loginu"); return false;}
     else if(document.forms['register'].password.value === "")
         {alert("Nie podałeś hasła");return false;}
@@ -128,11 +128,11 @@ function test1() {
         {alert("Nie podałeś e-maila");return false;}
     else if(document.forms['register'].email.value !== document.forms['register'].email2.value)
         {alert("Podane adresy e-mail nie są takie same");return false;}
-    else*/
+    else
         return true;
 }
 function test2(){
-   /* if(document.forms['register'].firstname.value === "")
+    if(document.forms['register'].firstname.value === "")
         {alert("Nie podałeś imienia"); return false;}
     else if(document.forms['register'].lastname.value === "")
         {alert("Nie podałeś nazwiska"); return false;}
@@ -140,7 +140,7 @@ function test2(){
         {alert("Błędny wiek"); return false;}
     else if(document.forms['register'].subject.value === "disabled")
         {alert("Nie podałeś kierunku");return false;}
-    else*/
+    else
         return true;
 }
 
