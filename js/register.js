@@ -3,12 +3,12 @@ let userData = {
     "login":null,
     "password":null,
     "email":null,
-    "firstname":null,
-    "lastname":null,
-    "age":null,
+    "name":null,
+    "surname":null,
+    "availability":null,
     "subject":null,
-    "abilities":"",
-    "description":""
+    "abilities":[],
+    "interests":null
 }
 
 let userDataLogin = {
@@ -29,12 +29,15 @@ function HideContent(d)
             if(test1()){
                 document.getElementById('part-1').style.display = "none";
                 document.getElementById('part-2').style.display = "block";
+                funLoadSubject();
+                funLoadAbilities();
             }
             break;
         case 'part-2':
             if (test2()){
                 document.getElementById('part-2').style.display = "none";
                 document.getElementById('part-3').style.display = "block";
+                //fun();
             }
             break;
         case 'part-3':
@@ -50,7 +53,7 @@ function HideContent(d)
     }
 }
 
-//formular logowanie
+//formularz logowanie
 function loginAndSend() {
     JSONFromFormLogin();
     sendLogin();
@@ -61,17 +64,17 @@ function JSONFromForm(){
     userData.login = document.forms['register'].login.value;
     userData.password = document.forms['register'].password.value;
     userData.email = document.forms['register'].email.value;
-    userData.firstname = document.forms['register'].firstname.value;
-    userData.lastname = document.forms['register'].lastname.value;
-    userData.age = document.forms['register'].age.value;
+    userData.name = document.forms['register'].firstname.value;
+    userData.surname = document.forms['register'].lastname.value;
+    userData.availability = document.forms['register'].availability.value;
     userData.subject = document.forms['register'].subject.value;
     let poleSelect = document.forms['register'].abilities;
     for (let i=0; i<poleSelect.length; i++){
         if (poleSelect.options[i].selected){
-            userData.abilities += poleSelect.options[i].value+';';
+            userData.abilities.push({"ability":poleSelect.options[i].value}) //+= poleSelect.options[i].value;
         }
     }
-    userData.description = document.forms['register'].description.value;
+    userData.interests = document.forms['register'].description.value;
 
     userDataString = JSON.stringify(userData);
     console.log(userDataString);
@@ -84,7 +87,7 @@ function JSONFromFormLogin(){
     console.log(userDataStringLogin);
 }
 
-//wysyłąnei danych na serwer (rejestracja)
+//wysyłanie danych na serwer (rejestracja)
 function send() {
     fetch(url, {
         method: "post",
@@ -99,7 +102,7 @@ function send() {
         .catch(error => console.log("Błąd: ", error));
 }
 
-//logowanie
+//logowanie (wysyłanie danych na serwer)
 function sendLogin() {
     fetch(url, {
         method: "post",
@@ -115,7 +118,7 @@ function sendLogin() {
 
 //walidacja formularza
 function test1() {
-    if(document.forms['register'].login.value === "")
+    /*if(document.forms['register'].login.value === "")
         {alert("Nie podałeś loginu"); return false;}
     else if(document.forms['register'].password.value === "")
         {alert("Nie podałeś hasła");return false;}
@@ -125,19 +128,53 @@ function test1() {
         {alert("Nie podałeś e-maila");return false;}
     else if(document.forms['register'].email.value !== document.forms['register'].email2.value)
         {alert("Podane adresy e-mail nie są takie same");return false;}
-    else
+    else*/
         return true;
 }
 function test2(){
-    if(document.forms['register'].firstname.value === "")
+   /* if(document.forms['register'].firstname.value === "")
         {alert("Nie podałeś imienia"); return false;}
     else if(document.forms['register'].lastname.value === "")
         {alert("Nie podałeś nazwiska"); return false;}
-    else if(document.forms['register'].age.value === "")
+    else if(document.forms['register'].availability.value === "")
         {alert("Błędny wiek"); return false;}
     else if(document.forms['register'].subject.value === "disabled")
         {alert("Nie podałeś kierunku");return false;}
-    else
+    else*/
         return true;
+}
+
+/*ładowanie danych do formularza*/
+function funLoadSubject(){
+    let optionForm = document.querySelector("select[name='subject']");
+
+    let subject = {
+        "name":"",
+        "term":""
+    }
+    fetch("../api/subjects")
+        .then(response => response.json())
+        .then(response =>{
+            subject = JSON.parse(JSON.stringify(response));
+            for (let i in subject){
+                optionForm.options[optionForm.options.length] = new Option(subject[i].name,subject[i].term);
+            }
+        })
+}
+
+function funLoadAbilities(){
+    let optionForm = document.querySelector("select[name='abilities']");
+
+    let ability = {
+        "ability":""
+    }
+    fetch("../api/abilities")
+        .then(response => response.json())
+        .then(response =>{
+            ability = JSON.parse(JSON.stringify(response));
+            for (let i in ability){
+                optionForm.options[optionForm.options.length] = new Option(ability[i].ability);
+            }
+        })
 }
 
