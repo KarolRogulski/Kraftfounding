@@ -49,6 +49,13 @@ a{
 }
 
 /*Style po zalogowaniu*/
+#user-login{
+    display: none;
+}
+#user-logout{
+    display: block;
+}
+
 .user-login{
     overflow: hidden;
 }
@@ -170,3 +177,4 @@ li
     font-size: 20px;
     min-height: 50px;
 }
+

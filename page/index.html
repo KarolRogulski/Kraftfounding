@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../css/fontello.css" type="text/css"/>
     <link href="https://fonts.googleapis.com/css?family=Lato:400,900&display=swap&subset=latin-ext" rel="stylesheet" />
 </head>
-<body>
+<body onload="checkLogin()">
     <header>
 
         <nav class="navbar navbar-dark bg-jumpers navbar-expand-xl">
@@ -45,7 +45,7 @@
 
                 </ul>
 
-                <div id="user-logout" class="user-interface" style="display: none;">
+                <div id="user-logout" class="user-interface">
                     <div class="d-inline-block mr-1 align-middle">
                         <a href="#" class="sign-up-link nav-color">Zarejestruj sie</a>
                     </div>
@@ -54,7 +54,7 @@
                     </div>
                 </div>
 
-                <div id="user-login" class="user-interface-login" style="display: block;">
+                <div id="user-login" class="user-interface-login">
                     <div class="d-inline-block mr-1 align-middle">
                         <a href="#" id="user-login-menu" class="dropbtn sign-up-link nav-color user-login" onclick="usermenu()">Adam Kowalski</a>
                         <div class="dropdown-user-menu" id="userDropdown">

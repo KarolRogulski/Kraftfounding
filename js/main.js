@@ -1,14 +1,52 @@
-fetch("https://jsonplaceholder.typicode.com/users")
+let projectData = {
+        "date":null,
+        "description":"",
+        "limit":null,
+        "student": {
+                "email":"",
+        },
+        "title":null,
+        "abilities":[
+            {
+                    "ability":""
+            }
+            ]
+}
+
+let user = {
+        "name":""
+}
+
+/*"https://jsonplaceholder.typicode.com/users"*/
+fetch("")
     .then(response => response.json())
     .then(response => {
-        userData = JSON.parse(JSON.stringify(response));
-        console.log(userData);
-        let myHeading = document.querySelectorAll('.author-project');
-        myHeading[0].textContent = userData[0].name;
-        document.querySelectorAll('.name-project')[1].textContent = userData[1].website;
-        document.querySelectorAll('.body-project')[1].textContent = userData[1].name;
+            projectData = JSON.parse(JSON.stringify(response));
+            console.log(projectData);
+
+            for (let i=0; i<3; i++){
+                    document.querySelectorAll('.date-project')[i].textContent = projectData[i].date
+                    document.querySelectorAll('.body-project')[i].textContent = projectData[i].description;
+                    document.querySelectorAll('.author-project')[i].textContent = projectData[i].student.email;
+                    document.querySelectorAll('.name-project')[i].textContent = projectData[i].title;
+            }
     })
 
+function checkLogin(){
+        fetch("")
+            .then(response => response.json())
+            .then(response =>{
+                    user = JSON.parse(JSON.stringify(response));
+                    if (user.name===""){
+                            document.getElementById("user-logout").style.display = "block";
+                            document.getElementById("user-login").style.display = "none";
+                    }else{
+                            document.getElementById("user-login-menu").textContent = user.name;
+                            document.getElementById("user-logout").style.display = "none";
+                            document.getElementById("user-login").style.display = "block";
+                    }
+            })
+}
 
 function usermenu() {
         document.getElementById("userDropdown").classList.toggle("show");
