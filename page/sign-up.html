@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Projekty</title>
+    <title>Sign up</title>
     <meta name="description" content="Znajdz idealny projekt dla siebie" />
     <meta name="keywords" content="projekt, projekty, politechnika-rzeszowska" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -34,7 +34,9 @@
             <span style="margin-left: 80px"><b>którzy mają pasję!</b></span></div>
         <div style="clear: both"></div>
         <div class="form-sign-in">
-            <div class="logo">logo</div>
+            <div class="logo">
+                <a class="navbar-brand" href="#"><img src="../img/full-logo.png" width="100%" height="50" class="d-inline-block mr-1 align-bottom" alt="Logo"></a>
+            </div>
             <div class="text-sign-in">Zarejestruj się</div>
             <form method="post" name="register">
                 <div id="part-1">
@@ -53,35 +55,17 @@
                     </br></br>
                     <input type="text" name="lastname" placeholder="Nazwisko" onfocus="this.placeholder=''" onblur="this.placeholder='Nazwisko'">
                     </br></br>
-                    <input type="number" name="age" placeholder="Wiek" onfocus="this.placeholder=''" onblur="this.placeholder='Wiek'">
+                    <input type="number" name="availability" placeholder="Dostępność" onfocus="this.placeholder=''" onblur="this.placeholder='Dostępność'">
                     </br></br>
                     <select name="subject">
                         <option value="disabled" disabled selected>Wybierz kierunek</option>
-                        <option value="i">Informatyka</option>
-                        <option value="z">Zarządzanie</option>
-                        <option value="a">Automatyka i robotyka</option>
-                        <option value="l">Lotnictwo</option>
                     </select>
                     </br></br>
                     <input class="submit" type="" value="Dalej" onclick="HideContent('part-2')">
                 </div>
                 <div id="part-3">
                     <select name="abilities" multiple>
-                        <option disabled selected>Wybierz zainteresowania</option>
-                        <optgroup label="Grupa 1">
-                            <option>Brak</option>
-                            <option>Możliwość 1.1</option>
-                            <option>Możliwość 1.2</option>
-                            <option>Możliwość 1.3</option>
-                        </optgroup>
-                        <optgroup label="Grupa 2">
-                            <option>Możliwość 2.1</option>
-                            <option>Możliwość 2.2</option>
-                            <option>Możliwość 2.3</option>
-                        </optgroup>
-                        <option>Możliwość 3</option>
-                        <option>Możliwość 4</option>
-                        <option>Możliwość 5</option>
+                        <option disabled selected>Wybierz umiejętności</option>
                     </select>
                     </br></br>
                     <input class="submit" type="" value="Dalej" onclick="HideContent('part-3')">
@@ -110,5 +94,6 @@
     </div>
 </div>
 <script src="../js/register.js"></script>
+
 </body>
 </html>

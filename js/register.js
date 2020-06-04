@@ -3,20 +3,25 @@ let userData = {
     "login":null,
     "password":null,
     "email":null,
-    "firstname":null,
-    "lastname":null,
-    "age":null,
+    "name":null,
+    "surname":null,
+    "availability":null,
     "subject":null,
-    "abilities":"",
-    "description":""
+    "abilities":[],
+    "interests":null
+}
+
+let userDataLogin = {
+    "username":null,
+    "password":null
 }
 //stałe i zmienne
 
 let userDataString;
 let userDataStringLogin;
-const url = "https://localhost:8081";
+const url = "https://jsonplaceholder.typicode.com/posts";
 
-//przełączanie okienek w formularzu
+//przełączanie okienek w formularzu (rejestracja)
 function HideContent(d)
 {
     switch (d) {
@@ -24,12 +29,15 @@ function HideContent(d)
             if(test1()){
                 document.getElementById('part-1').style.display = "none";
                 document.getElementById('part-2').style.display = "block";
+                funLoadSubject();
+                funLoadAbilities();
             }
             break;
         case 'part-2':
             if (test2()){
                 document.getElementById('part-2').style.display = "none";
                 document.getElementById('part-3').style.display = "block";
+                //fun();
             }
             break;
         case 'part-3':
@@ -45,34 +53,44 @@ function HideContent(d)
     }
 }
 
+//formularz logowanie
+function loginAndSend() {
+    JSONFromFormLogin();
+    sendLogin();
+}
+
 //zamiana obiektu na JSON
 function JSONFromForm(){
     userData.login = document.forms['register'].login.value;
     userData.password = document.forms['register'].password.value;
     userData.email = document.forms['register'].email.value;
-    userData.firstname = document.forms['register'].firstname.value;
-    userData.lastname = document.forms['register'].lastname.value;
-    userData.age = document.forms['register'].age.value;
+    userData.name = document.forms['register'].firstname.value;
+    userData.surname = document.forms['register'].lastname.value;
+    userData.availability = document.forms['register'].availability.value;
     userData.subject = document.forms['register'].subject.value;
     let poleSelect = document.forms['register'].abilities;
     for (let i=0; i<poleSelect.length; i++){
         if (poleSelect.options[i].selected){
-            userData.abilities += poleSelect.options[i].value+';';
+            userData.abilities.push({"ability":poleSelect.options[i].value})
         }
     }
-    userData.description = document.forms['register'].description.value;
+    userData.interests = document.forms['register'].description.value;
 
     userDataString = JSON.stringify(userData);
     console.log(userDataString);
 }
 
-//wysyłąnei danych na serwer
+function JSONFromFormLogin(){
+    userDataLogin.username = document.forms['login'].username.value;
+    userDataLogin.password = document.forms['login'].password.value;
+    userDataStringLogin = JSON.stringify(userDataLogin);
+    console.log(userDataStringLogin);
+}
+
+//wysyłanie danych na serwer (rejestracja)
 function send() {
     fetch(url, {
         method: "post",
-        headers: {
-            "Content-Type": "application/json"
-        },
         body: userDataString
     })
         .then(res => res.json())
@@ -81,13 +99,21 @@ function send() {
             console.log("Dodałem użytkownika:");
             console.log(res);
         })
-        .catch(error =>{
-            if (error.status === 404) {
-                console.log("Błąd: żądany adres nie istnieje");
-            }else{
-                console.log("Błąd: brak adresu");
-            }
+        .catch(error => console.log("Błąd: ", error));
+}
+
+//logowanie (wysyłanie danych na serwer)
+function sendLogin() {
+    fetch(url, {
+        method: "post",
+        body: userDataStringLogin
+    })
+        .then(res => res.json())
+        .then(res => {
+            alert("Zalogowano")
+            console.log(res);
         })
+        .catch(error => console.log("Błąd: ", error));
 }
 
 //walidacja formularza
@@ -110,7 +136,7 @@ function test2(){
         {alert("Nie podałeś imienia"); return false;}
     else if(document.forms['register'].lastname.value === "")
         {alert("Nie podałeś nazwiska"); return false;}
-    else if(document.forms['register'].age.value === "")
+    else if(document.forms['register'].availability.value === "")
         {alert("Błędny wiek"); return false;}
     else if(document.forms['register'].subject.value === "disabled")
         {alert("Nie podałeś kierunku");return false;}
@@ -118,3 +144,36 @@ function test2(){
         return true;
 }
 
+/*ładowanie danych do formularza*/
+function funLoadSubject(){
+    let optionForm = document.querySelector("select[name='subject']");
+
+    let subject = {
+        "name":"",
+        "term":""
+    }
+    fetch("../api/subjects")
+        .then(response => response.json())
+        .then(response =>{
+            subject = JSON.parse(JSON.stringify(response));
+            for (let i in subject){
+                optionForm.options[optionForm.options.length] = new Option(subject[i].name,subject[i].term);
+            }
+        })
+}
+
+function funLoadAbilities(){
+    let optionForm = document.querySelector("select[name='abilities']");
+
+    let ability = {
+        "ability":""
+    }
+    fetch("../api/abilities")
+        .then(response => response.json())
+        .then(response =>{
+            ability = JSON.parse(JSON.stringify(response));
+            for (let i in ability){
+                optionForm.options[optionForm.options.length] = new Option(ability[i].ability);
+            }
+        })
+}
